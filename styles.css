@@ -12,14 +12,14 @@
 
 :root.dark {
   color-scheme: dark;
-  --bg: #101010;
-  --text: #f2f2f2;
-  --muted: #bbbbbb;
-  --faint: #888888;
-  --line: #343434;
+  --bg: #111111;
+  --text: #f4f4f4;
+  --muted: #d0d0d0;
+  --faint: #a4a4a4;
+  --line: #4a4a4a;
   --panel: #242424;
-  --panel-hover: #2b2b2b;
-  --active-nav: #303030;
+  --panel-hover: #303030;
+  --active-nav: #343434;
 }
 
 * {
@@ -32,8 +32,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Verdana, "Segoe UI", Arial, sans-serif;
-  font-size: 13px;
-  line-height: 1.45;
+  font-size: 13.5px;
+  line-height: 1.5;
   transition: background-color 160ms ease, color 160ms ease;
 }
 
@@ -212,7 +212,7 @@ h3 {
 dt,
 .year {
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0;
   text-transform: lowercase;
@@ -236,7 +236,7 @@ h2 {
 
 h3 {
   margin-bottom: 0.15rem;
-  font-size: 0.86rem;
+  font-size: 0.92rem;
 }
 
 .lead,
@@ -248,7 +248,7 @@ dd {
 }
 
 .lead {
-  font-size: 0.86rem;
+  font-size: 0.92rem;
 }
 
 .snapshot {
@@ -393,7 +393,7 @@ dd {
   margin: -0.5rem 0 0;
   color: var(--faint);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
 }
 
 .stack-list {
@@ -471,7 +471,7 @@ dd {
 .experience-item small {
   grid-column: 1;
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.76rem;
 }
 
 .experience-item em {
@@ -479,7 +479,7 @@ dd {
   grid-row: 1 / 3;
   color: var(--muted);
   font-style: normal;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   text-align: right;
 }
 
@@ -502,7 +502,7 @@ dd {
   margin-bottom: 0.75rem;
   color: var(--text);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 800;
 }
 
@@ -522,7 +522,7 @@ dd {
 .manual-output dt {
   color: var(--faint);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 500;
 }
 
@@ -530,6 +530,7 @@ dd {
   margin: 0;
   color: var(--muted);
   font-family: Verdana, "Segoe UI", Arial, sans-serif;
+  font-size: 0.9rem;
 }
 
 .project-browser {
@@ -577,7 +578,7 @@ dd {
 
 .project-item small {
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.76rem;
 }
 
 .project-panel {
@@ -671,7 +672,7 @@ dd {
 
 .contact-copy {
   max-width: none;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
 }
 
 .skills-output {
@@ -730,6 +731,7 @@ dd {
 .contact-row a {
   width: fit-content;
   font-weight: 500;
+  color: var(--muted);
 }
 
 footer {
