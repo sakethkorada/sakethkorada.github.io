@@ -8,6 +8,15 @@ const experiencePanels = document.querySelectorAll(".experience-panel");
 const projectItems = document.querySelectorAll(".project-item");
 const projectPanels = document.querySelectorAll(".project-panel");
 const terminals = document.querySelectorAll("[data-terminal]");
+const terminalPath = document.querySelector("[data-terminal-path]");
+const globalTerminalInput = document.querySelector("[data-global-terminal] [data-terminal-input]");
+
+const terminalPageLabels = {
+  bio: "bio",
+  experience: "exp",
+  projects: "projects",
+  contact: "contact",
+};
 
 const storage = {
   get(key) {
@@ -40,6 +49,15 @@ function showPage(pageName, updateHash = true) {
   if (updateHash) {
     history.replaceState(null, "", `#${targetPage}`);
   }
+
+  if (terminalPath) {
+    terminalPath.textContent = `C:\\Users\\saketh\\portfolio\\${terminalPageLabels[targetPage]}`;
+  }
+
+  if (globalTerminalInput) {
+    globalTerminalInput.placeholder =
+      targetPage === "bio" ? "try help" : "bio, exp, projects, contact";
+  }
 }
 
 function applyTheme(theme) {
@@ -58,6 +76,10 @@ const brandLink = document.querySelector("[data-brand-link]");
 brandLink.addEventListener("click", (event) => {
   event.preventDefault();
   showPage("bio");
+});
+
+window.addEventListener("hashchange", () => {
+  showPage(window.location.hash.replace("#", ""), false);
 });
 
 toggle.addEventListener("click", () => {
