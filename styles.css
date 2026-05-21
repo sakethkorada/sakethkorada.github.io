@@ -263,6 +263,10 @@ dd {
   padding: 0.9rem;
 }
 
+.bio-panel + .bio-panel {
+  margin-top: 0.75rem;
+}
+
 dl {
   margin: 0;
   padding: 0.45rem 0;
