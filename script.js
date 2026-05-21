@@ -170,22 +170,48 @@ function createGameShell(output, title, helpText) {
   const shell = document.createElement("div");
   shell.className = "terminal-game";
   shell.innerHTML = `
-    <p><b>${title}</b> ${helpText}</p>
-    <pre class="terminal-game-screen" tabindex="0" aria-label="${title} game"></pre>
+    <p><b>${title}</b> ${helpText} press q to exit.</p>
+    <canvas class="terminal-game-screen" width="520" height="210" tabindex="0" aria-label="${title} game"></canvas>
     <p data-game-status>score: 0</p>
   `;
   output.append(shell);
   output.scrollTop = output.scrollHeight;
 
-  const screen = shell.querySelector(".terminal-game-screen");
+  const screen = shell.querySelector("canvas");
+  const ctx = screen.getContext("2d");
   const status = shell.querySelector("[data-game-status]");
+  ctx.imageSmoothingEnabled = false;
   window.setTimeout(() => screen.focus({ preventScroll: true }), 80);
 
-  return { screen, status };
+  return { screen, ctx, status, shell, terminal };
 }
 
-function setGameScreen(screen, lines) {
-  screen.textContent = lines.join("\n");
+function clearGame(ctx, canvas, title) {
+  ctx.fillStyle = "#050505";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#9d9d9d";
+  ctx.font = "12px monospace";
+  ctx.fillText(title, 10, 18);
+}
+
+function drawCell(ctx, x, y, size, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, size, size);
+}
+
+function makeGameController(timer, onKey, terminal, shell, output) {
+  return {
+    stop() {
+      window.clearInterval(timer);
+      window.removeEventListener("keydown", onKey);
+    },
+    quit() {
+      this.stop();
+      shell.remove();
+      terminal?.classList.remove("is-game");
+      appendTerminalLine(output, "exited game.", "terminal-help");
+    },
+  };
 }
 
 function isTypingInTerminal(event) {
@@ -193,9 +219,10 @@ function isTypingInTerminal(event) {
 }
 
 function startSnake(output) {
-  const { screen, status } = createGameShell(output, "snake", "use arrows/wasd. eat dots, avoid yourself.");
-  const cols = 38;
-  const rows = 12;
+  const { screen, ctx, status, shell, terminal } = createGameShell(output, "snake", "use arrows/wasd. eat dots, avoid yourself.");
+  const cell = 13;
+  const cols = 40;
+  const rows = 13;
   let snake = [
     { x: 9, y: 7 },
     { x: 8, y: 7 },
@@ -217,18 +244,13 @@ function startSnake(output) {
   }
 
   function draw() {
-    const grid = Array.from({ length: rows }, () => Array(cols).fill(" "));
-    grid[food.y][food.x] = "*";
+    clearGame(ctx, screen, "snake");
+    ctx.strokeStyle = "#242424";
+    ctx.strokeRect(0.5, 25.5, cols * cell + 0.5, rows * cell + 0.5);
+    drawCell(ctx, food.x * cell + 2, 27 + food.y * cell, cell - 4, "#777777");
     snake.forEach((part, index) => {
-      grid[part.y][part.x] = index === 0 ? "@" : "o";
+      drawCell(ctx, part.x * cell + 1, 27 + part.y * cell, cell - 2, index === 0 ? "#ffffff" : "#cfcfcf");
     });
-    const border = `+${"-".repeat(cols)}+`;
-    setGameScreen(screen, [
-      "snake",
-      border,
-      ...grid.map((row) => `|${row.join("")}|`),
-      border,
-    ]);
 
     status.textContent = done ? `game over. score: ${score}. run snake to retry.` : `score: ${score}`;
   }
@@ -257,6 +279,12 @@ function startSnake(output) {
 
   function onKey(event) {
     if (isTypingInTerminal(event)) return;
+    if (event.key.toLowerCase() === "q") {
+      event.preventDefault();
+      activeGame?.quit();
+      activeGame = null;
+      return;
+    }
 
     const keys = {
       ArrowUp: { x: 0, y: -1 },
@@ -278,80 +306,77 @@ function startSnake(output) {
 
   window.addEventListener("keydown", onKey);
   const timer = window.setInterval(tick, 130);
-  activeGame = {
-    stop() {
-      window.clearInterval(timer);
-      window.removeEventListener("keydown", onKey);
-    },
-  };
+  activeGame = makeGameController(timer, onKey, terminal, shell, output);
   draw();
 }
 
 function startDino(output) {
-  const { screen, status } = createGameShell(output, "dino", "press space/w/up to jump.");
-  const cols = 58;
-  const rows = 11;
-  const ground = 7;
-  const dinoSprite = ["  ## ", "#### ", " ## #", " ##  "];
+  const { screen, ctx, status, shell, terminal } = createGameShell(output, "dino", "press space/w/up to jump.");
+  const ground = 164;
   let y = ground;
   let velocity = 0;
-  let obstacleX = cols + 8;
+  let obstacleX = screen.width + 40;
   let score = 0;
   let done = false;
 
   function jump() {
     if (done || y < ground) return;
-    velocity = -2.5;
+    velocity = -13;
+  }
+
+  function drawDino(x, yPos) {
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(x + 8, yPos, 18, 8);
+    ctx.fillRect(x + 4, yPos + 8, 30, 10);
+    ctx.fillRect(x + 12, yPos + 18, 12, 14);
+    ctx.fillRect(x + 4, yPos + 28, 8, 8);
+    ctx.fillRect(x + 24, yPos + 28, 8, 8);
+    ctx.fillRect(x + 32, yPos + 10, 9, 6);
+    ctx.fillStyle = "#050505";
+    ctx.fillRect(x + 23, yPos + 3, 4, 4);
+  }
+
+  function drawCactus(x) {
+    ctx.fillStyle = "#9d9d9d";
+    ctx.fillRect(x + 8, ground + 2, 9, 34);
+    ctx.fillRect(x, ground + 16, 8, 7);
+    ctx.fillRect(x + 17, ground + 10, 8, 7);
   }
 
   function draw() {
-    const grid = Array.from({ length: rows }, () => Array(cols).fill(" "));
-    grid[ground + 4] = Array(cols).fill("_");
-
-    const dinoX = 5;
-    const dinoY = Math.round(y);
-    dinoSprite.forEach((line, row) => {
-      [...line].forEach((char, col) => {
-        if (char !== " " && grid[dinoY + row]?.[dinoX + col] !== undefined) {
-          grid[dinoY + row][dinoX + col] = char;
-        }
-      });
-    });
-
-    const cactus = [" # ", "###", " # ", " # "];
-    cactus.forEach((line, row) => {
-      [...line].forEach((char, col) => {
-        const x = Math.round(obstacleX) + col;
-        const yPos = ground + row;
-        if (char !== " " && grid[yPos]?.[x] !== undefined) {
-          grid[yPos][x] = char;
-        }
-      });
-    });
-
-    setGameScreen(screen, ["dino", ...grid.map((row) => row.join(""))]);
+    clearGame(ctx, screen, "dino");
+    ctx.fillStyle = "#242424";
+    ctx.fillRect(0, ground + 38, screen.width, 3);
+    drawDino(44, y);
+    drawCactus(obstacleX);
 
     status.textContent = done ? `bonked. score: ${score}. run dino to retry.` : `score: ${score}`;
   }
 
   function tick() {
     if (done) return;
-    velocity += 0.22;
+    velocity += 0.78;
     y = Math.min(ground, y + velocity);
-    obstacleX -= 1.25;
-    if (obstacleX < -5) {
-      obstacleX = cols + Math.random() * 16;
+    obstacleX -= 7;
+    if (obstacleX < -30) {
+      obstacleX = screen.width + Math.random() * 130;
       score += 1;
     }
 
-    const hitX = obstacleX < 10 && obstacleX + 3 > 5;
-    const hitY = Math.round(y) + dinoSprite.length > ground;
+    const hitX = obstacleX < 77 && obstacleX + 25 > 48;
+    const hitY = y + 36 > ground + 2;
     if (hitX && hitY) done = true;
     draw();
   }
 
   function onKey(event) {
     if (isTypingInTerminal(event)) return;
+    if (event.key.toLowerCase() === "q") {
+      event.preventDefault();
+      activeGame?.quit();
+      activeGame = null;
+      return;
+    }
 
     if (![" ", "ArrowUp", "w"].includes(event.key)) return;
     event.preventDefault();
@@ -360,17 +385,13 @@ function startDino(output) {
 
   window.addEventListener("keydown", onKey);
   const timer = window.setInterval(tick, 34);
-  activeGame = {
-    stop() {
-      window.clearInterval(timer);
-      window.removeEventListener("keydown", onKey);
-    },
-  };
+  activeGame = makeGameController(timer, onKey, terminal, shell, output);
   draw();
 }
 
 function startPacman(output) {
-  const { screen, status } = createGameShell(output, "pacman", "use arrows/wasd. clear dots, dodge the ghost.");
+  const { screen, ctx, status, shell, terminal } = createGameShell(output, "pacman", "use arrows/wasd. clear dots, dodge the ghost.");
+  const cell = 18;
   const cols = 25;
   const rows = 9;
   const walls = new Set(["6,2", "6,3", "6,4", "12,1", "12,2", "12,6", "12,7", "18,4", "19,4"]);
@@ -392,23 +413,36 @@ function startPacman(output) {
   }
 
   function draw() {
-    const grid = Array.from({ length: rows }, () => Array(cols).fill(" "));
+    clearGame(ctx, screen, "pacman");
+    const offsetX = 36;
+    const offsetY = 30;
+    ctx.fillStyle = "#242424";
     for (let y = 0; y < rows; y += 1) {
       for (let x = 0; x < cols; x += 1) {
         if (x === 0 || y === 0 || x === cols - 1 || y === rows - 1 || walls.has(`${x},${y}`)) {
-          grid[y][x] = "#";
+          ctx.fillRect(offsetX + x * cell, offsetY + y * cell, cell - 2, cell - 2);
         }
       }
     }
 
+    ctx.fillStyle = "#777777";
     dots.forEach((dot) => {
       const [x, y] = dot.split(",").map(Number);
-      grid[y][x] = ".";
+      ctx.fillRect(offsetX + x * cell + 7, offsetY + y * cell + 7, 4, 4);
     });
 
-    grid[player.y][player.x] = "C";
-    grid[ghost.y][ghost.x] = "G";
-    setGameScreen(screen, ["pacman", ...grid.map((row) => row.join(""))]);
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(offsetX + player.x * cell + 8, offsetY + player.y * cell + 8, 8, 0.25 * Math.PI, 1.75 * Math.PI);
+    ctx.lineTo(offsetX + player.x * cell + 8, offsetY + player.y * cell + 8);
+    ctx.fill();
+
+    ctx.fillStyle = "#9d9d9d";
+    ctx.fillRect(offsetX + ghost.x * cell, offsetY + ghost.y * cell + 4, cell - 2, cell - 6);
+    ctx.fillRect(offsetX + ghost.x * cell + 3, offsetY + ghost.y * cell, cell - 8, 7);
+    ctx.fillStyle = "#050505";
+    ctx.fillRect(offsetX + ghost.x * cell + 4, offsetY + ghost.y * cell + 6, 3, 3);
+    ctx.fillRect(offsetX + ghost.x * cell + 11, offsetY + ghost.y * cell + 6, 3, 3);
 
     if (done) {
       status.textContent = dots.size ? `caught. score: ${score}. run pacman to retry.` : `cleared. score: ${score}.`;
@@ -442,6 +476,12 @@ function startPacman(output) {
 
   function onKey(event) {
     if (isTypingInTerminal(event)) return;
+    if (event.key.toLowerCase() === "q") {
+      event.preventDefault();
+      activeGame?.quit();
+      activeGame = null;
+      return;
+    }
 
     const keys = {
       ArrowUp: { x: 0, y: -1 },
@@ -460,12 +500,7 @@ function startPacman(output) {
 
   window.addEventListener("keydown", onKey);
   const timer = window.setInterval(tick, 165);
-  activeGame = {
-    stop() {
-      window.clearInterval(timer);
-      window.removeEventListener("keydown", onKey);
-    },
-  };
+  activeGame = makeGameController(timer, onKey, terminal, shell, output);
   draw();
 }
 
