@@ -501,10 +501,36 @@ dd {
   padding: 0.55rem 0.65rem 0;
 }
 
+.command-strip.is-game .terminal-output {
+  max-height: 20rem;
+}
+
 .command-strip .terminal-input-row {
   margin: 0.34rem 0.65rem 0.46rem;
   border-top: 0;
   padding-top: 0;
+}
+
+.terminal-game {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.terminal-game canvas {
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  border: 1px solid #2d2d2d;
+  background: #050505;
+  image-rendering: pixelated;
+}
+
+.terminal-game p {
+  color: #cfcfcf;
+}
+
+.terminal-game b {
+  color: #ffffff;
 }
 
 dl {
