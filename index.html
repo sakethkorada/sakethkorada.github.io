@@ -9,7 +9,7 @@
     />
     <title>Saketh Korada | Portfolio</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=40" />
+    <link rel="stylesheet" href="styles.css?v=41" />
   </head>
   <body>
     <div class="site-shell">
@@ -421,18 +421,24 @@
             i'm happy to talk about internships, projects, campus work, or
             anything that sounds useful to build.
           </p>
-          <div class="contact-list" aria-label="Contact links">
-            <div class="contact-row">
-              <span>email</span>
-              <a href="mailto:skorada@ucsd.edu">skorada [at] ucsd [dot] edu</a>
+          <div class="contact-browser">
+            <div class="contact-list" aria-label="Contact links">
+              <a class="contact-command" href="mailto:skorada@ucsd.edu">
+                <span><b>open</b> email</span>
+                <small>skorada [at] ucsd [dot] edu</small>
+              </a>
+              <a class="contact-command" href="https://www.linkedin.com/in/saketh-korada/" target="_blank" rel="noopener noreferrer">
+                <span><b>open</b> linkedin</span>
+                <small>linkedin.com/in/saketh-korada</small>
+              </a>
+              <a class="contact-command" href="https://github.com/sakethkorada" target="_blank" rel="noopener noreferrer">
+                <span><b>open</b> github</span>
+                <small>github.com/sakethkorada</small>
+              </a>
             </div>
-            <div class="contact-row">
-              <span>linkedin</span>
-              <a href="https://www.linkedin.com/in/saketh-korada/" target="_blank" rel="noopener noreferrer">linkedin.com/in/saketh-korada</a>
-            </div>
-            <div class="contact-row">
-              <span>github</span>
-              <a href="https://github.com/sakethkorada" target="_blank" rel="noopener noreferrer">github.com/sakethkorada</a>
+            <div class="contact-panel">
+              <p class="manual-line">$ contact --open</p>
+              <p>pick a command on the left, or use the terminal on bio with email, linkedin, or github.</p>
             </div>
           </div>
         </div>
@@ -444,6 +450,6 @@
       </footer>
     </div>
 
-    <script src="script.js?v=40"></script>
+    <script src="script.js?v=41"></script>
   </body>
 </html>

@@ -675,6 +675,14 @@ dd {
   font-size: 0.92rem;
 }
 
+.contact-browser {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.78fr) minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+  margin-top: 1.35rem;
+}
+
 .skills-output {
   margin-top: 1.25rem;
   border-top: 1px solid var(--line);
@@ -706,31 +714,48 @@ dd {
 
 .contact-list {
   display: grid;
-  margin-top: 1.35rem;
-  border-top: 1px solid var(--line);
 }
 
-.contact-row {
+.contact-command {
   display: grid;
-  grid-template-columns: 7rem 1fr;
-  gap: 1rem;
-  align-items: baseline;
-  border-bottom: 1px solid var(--line);
-  padding: 0.85rem 0;
+  gap: 0.12rem;
+  padding: 0.45rem 0.6rem;
+  text-decoration: none;
 }
 
-.contact-row span {
-  color: var(--faint);
+.contact-command:hover {
+  background: var(--panel);
+}
+
+.contact-command span {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-weight: 800;
 }
 
-.contact-row a {
-  width: fit-content;
+.contact-command span::before {
+  content: "$ ";
+  color: var(--faint);
   font-weight: 500;
+}
+
+.contact-command span b {
+  color: var(--faint);
+  font-weight: 500;
+}
+
+.contact-command small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.contact-panel {
+  border-radius: 5px;
+  background: var(--panel);
+  padding: 0.9rem;
+}
+
+.contact-panel p:last-child {
+  margin-bottom: 0;
   color: var(--muted);
 }
 
@@ -757,6 +782,7 @@ footer span {
   .bio-browser,
   .experience-browser,
   .project-browser,
+  .contact-browser,
   #experience .stack-list article {
     grid-template-columns: 1fr;
   }
@@ -772,11 +798,6 @@ footer span {
 
   .row-links {
     grid-column: 2;
-  }
-
-  .contact-row {
-    grid-template-columns: 1fr;
-    gap: 0.25rem;
   }
 
   .brand {
