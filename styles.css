@@ -523,7 +523,7 @@ dd {
   border: 0;
   border-top: 1px solid #242424;
   border-bottom: 1px solid #242424;
-  background: #050505;
+  background: transparent;
   image-rendering: pixelated;
   outline: 0;
 }

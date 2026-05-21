@@ -180,14 +180,15 @@ function createGameShell(output, title, helpText) {
   const screen = shell.querySelector("canvas");
   const ctx = screen.getContext("2d");
   const status = shell.querySelector("[data-game-status]");
+  const background = window.getComputedStyle(terminal).backgroundColor || "#050505";
   ctx.imageSmoothingEnabled = false;
   window.setTimeout(() => screen.focus({ preventScroll: true }), 80);
 
-  return { screen, ctx, status, shell, terminal };
+  return { screen, ctx, status, shell, terminal, background };
 }
 
-function clearGame(ctx, canvas, title) {
-  ctx.fillStyle = "#050505";
+function clearGame(ctx, canvas, title, background) {
+  ctx.fillStyle = background;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#9d9d9d";
   ctx.font = "12px monospace";
@@ -219,7 +220,7 @@ function isTypingInTerminal(event) {
 }
 
 function startSnake(output) {
-  const { screen, ctx, status, shell, terminal } = createGameShell(output, "snake", "use arrows/wasd. eat dots, avoid yourself.");
+  const { screen, ctx, status, shell, terminal, background } = createGameShell(output, "snake", "use arrows/wasd. eat dots, avoid yourself.");
   const cell = 13;
   const cols = 40;
   const rows = 13;
@@ -244,7 +245,7 @@ function startSnake(output) {
   }
 
   function draw() {
-    clearGame(ctx, screen, "snake");
+    clearGame(ctx, screen, "snake", background);
     ctx.strokeStyle = "#242424";
     ctx.strokeRect(0.5, 25.5, cols * cell + 0.5, rows * cell + 0.5);
     drawCell(ctx, food.x * cell + 2, 27 + food.y * cell, cell - 4, "#777777");
@@ -311,7 +312,7 @@ function startSnake(output) {
 }
 
 function startDino(output) {
-  const { screen, ctx, status, shell, terminal } = createGameShell(output, "dino", "press space/w/up to jump.");
+  const { screen, ctx, status, shell, terminal, background } = createGameShell(output, "dino", "press space/w/up to jump.");
   const ground = 164;
   let y = ground;
   let velocity = 0;
@@ -332,7 +333,7 @@ function startDino(output) {
     ctx.fillRect(x + 4, yPos + 28, 8, 8);
     ctx.fillRect(x + 24, yPos + 28, 8, 8);
     ctx.fillRect(x + 32, yPos + 10, 9, 6);
-    ctx.fillStyle = "#050505";
+    ctx.fillStyle = background;
     ctx.fillRect(x + 23, yPos + 3, 4, 4);
   }
 
@@ -344,7 +345,7 @@ function startDino(output) {
   }
 
   function draw() {
-    clearGame(ctx, screen, "dino");
+    clearGame(ctx, screen, "dino", background);
     ctx.fillStyle = "#242424";
     ctx.fillRect(0, ground + 38, screen.width, 3);
     drawDino(44, y);
@@ -390,7 +391,7 @@ function startDino(output) {
 }
 
 function startPacman(output) {
-  const { screen, ctx, status, shell, terminal } = createGameShell(output, "pacman", "use arrows/wasd. clear dots, dodge the ghost.");
+  const { screen, ctx, status, shell, terminal, background } = createGameShell(output, "pacman", "use arrows/wasd. clear dots, dodge the ghost.");
   const cell = 18;
   const cols = 25;
   const rows = 9;
@@ -413,7 +414,7 @@ function startPacman(output) {
   }
 
   function draw() {
-    clearGame(ctx, screen, "pacman");
+    clearGame(ctx, screen, "pacman", background);
     const offsetX = 36;
     const offsetY = 30;
     ctx.fillStyle = "#242424";
@@ -440,7 +441,7 @@ function startPacman(output) {
     ctx.fillStyle = "#9d9d9d";
     ctx.fillRect(offsetX + ghost.x * cell, offsetY + ghost.y * cell + 4, cell - 2, cell - 6);
     ctx.fillRect(offsetX + ghost.x * cell + 3, offsetY + ghost.y * cell, cell - 8, 7);
-    ctx.fillStyle = "#050505";
+    ctx.fillStyle = background;
     ctx.fillRect(offsetX + ghost.x * cell + 4, offsetY + ghost.y * cell + 6, 3, 3);
     ctx.fillRect(offsetX + ghost.x * cell + 11, offsetY + ghost.y * cell + 6, 3, 3);
 
