@@ -87,7 +87,7 @@ h3 {
 }
 
 .chase-cursor {
-  --chase-distance: clamp(5rem, 36vw, 22rem);
+  --chase-distance: clamp(5rem, 43vw, 25.5rem);
   position: relative;
   display: inline-block;
   width: var(--chase-distance);
@@ -173,12 +173,17 @@ h3 {
 
   78% {
     opacity: 1;
-    transform: translate(calc(var(--chase-distance) - 0.9em), -50%);
+    transform: translate(calc(var(--chase-distance) - 0.55em), -50%);
+  }
+
+  92% {
+    opacity: 0;
+    transform: translate(calc(var(--chase-distance) + 0.05em), -50%);
   }
 
   100% {
     opacity: 0;
-    transform: translate(calc(var(--chase-distance) + 0.2em), -50%);
+    transform: translate(calc(var(--chase-distance) + 0.05em), -50%);
   }
 }
 
@@ -199,19 +204,19 @@ h3 {
     transform: translate(1.75em, -50%);
   }
 
-  70% {
+  74% {
     opacity: 0.6;
-    transform: translate(calc(var(--chase-distance) + 0.15em), -50%);
+    transform: translate(calc(var(--chase-distance) - 0.2em), -50%);
   }
 
-  88% {
+  92% {
     opacity: 0;
-    transform: translate(calc(var(--chase-distance) + 0.65em), -50%);
+    transform: translate(calc(var(--chase-distance) + 0.18em), -50%);
   }
 
   100% {
     opacity: 0;
-    transform: translate(calc(var(--chase-distance) + 0.65em), -50%);
+    transform: translate(calc(var(--chase-distance) + 0.18em), -50%);
   }
 }
 
