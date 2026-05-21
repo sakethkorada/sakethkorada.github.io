@@ -89,9 +89,10 @@ h3 {
 .chase-cursor {
   position: relative;
   display: inline-block;
-  width: 1.35em;
+  width: 1.85em;
   height: 0.62em;
   flex: 0 0 auto;
+  overflow: hidden;
   transform: translateY(0.07em);
 }
 
@@ -110,22 +111,38 @@ h3 {
   border-radius: 50%;
   background: currentColor;
   clip-path: polygon(0 0, 100% 0, 100% 36%, 55% 50%, 100% 64%, 100% 100%, 0 100%);
-  animation: chase-step 1.25s steps(2, end) infinite, chomp 0.42s steps(2, end) infinite;
+  animation: chase-run 2.1s linear infinite, chomp 0.42s steps(2, end) infinite;
 }
 
 .chase-dot {
-  right: 0;
+  left: 0;
   width: 0.36em;
   height: 0.42em;
   border-radius: 50% 50% 16% 16%;
   background: currentColor;
   opacity: 0.55;
-  animation: ghost-hop 1.25s steps(2, end) infinite;
+  animation: ghost-run 2.1s linear infinite;
 }
 
-@keyframes chase-step {
-  50% {
-    transform: translate(0.24em, -50%);
+@keyframes chase-run {
+  0% {
+    opacity: 0;
+    transform: translate(2em, -50%);
+  }
+
+  14% {
+    opacity: 1;
+    transform: translate(1.5em, -50%);
+  }
+
+  78% {
+    opacity: 1;
+    transform: translate(-0.48em, -50%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-0.8em, -50%);
   }
 }
 
@@ -135,9 +152,30 @@ h3 {
   }
 }
 
-@keyframes ghost-hop {
-  50% {
-    transform: translate(-0.08em, -58%);
+@keyframes ghost-run {
+  0% {
+    opacity: 0;
+    transform: translate(2.4em, -50%);
+  }
+
+  8% {
+    opacity: 0.55;
+    transform: translate(1.78em, -50%);
+  }
+
+  70% {
+    opacity: 0.55;
+    transform: translate(-0.08em, -56%);
+  }
+
+  88% {
+    opacity: 0;
+    transform: translate(-0.55em, -50%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-0.55em, -50%);
   }
 }
 
