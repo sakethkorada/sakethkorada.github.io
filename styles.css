@@ -103,6 +103,7 @@ h3 {
   top: 50%;
   display: block;
   transform: translateY(-50%);
+  will-change: transform, opacity;
 }
 
 .chase-player {
@@ -111,7 +112,7 @@ h3 {
   height: 0.52em;
   background: currentColor;
   clip-path: polygon(0 0, 100% 0, 100% 34%, 58% 50%, 100% 66%, 100% 100%, 0 100%);
-  animation: chase-run 3s steps(22, end) infinite, chomp 0.42s steps(2, end) infinite;
+  animation: chase-run 3.4s linear infinite, chomp 0.42s steps(2, end) infinite;
 }
 
 .chase-player::after {
@@ -146,7 +147,7 @@ h3 {
     0 76%
   );
   opacity: 0.6;
-  animation: ghost-run 3s steps(22, end) infinite;
+  animation: ghost-run 3.4s linear infinite;
 }
 
 .chase-dot::before {
@@ -163,27 +164,27 @@ h3 {
 @keyframes chase-run {
   0% {
     opacity: 0;
-    transform: translate(-0.85em, -50%);
+    transform: translate3d(-0.85em, -50%, 0);
   }
 
-  14% {
+  8% {
     opacity: 1;
-    transform: translate(0.2em, -50%);
+    transform: translate3d(-0.1em, -50%, 0);
   }
 
-  78% {
+  82% {
     opacity: 1;
-    transform: translate(calc(var(--chase-distance) - 0.55em), -50%);
+    transform: translate3d(calc(var(--chase-distance) - 0.55em), -50%, 0);
   }
 
   92% {
     opacity: 0;
-    transform: translate(calc(var(--chase-distance) + 0.05em), -50%);
+    transform: translate3d(calc(var(--chase-distance) + 0.05em), -50%, 0);
   }
 
   100% {
     opacity: 0;
-    transform: translate(calc(var(--chase-distance) + 0.05em), -50%);
+    transform: translate3d(calc(var(--chase-distance) + 0.05em), -50%, 0);
   }
 }
 
@@ -196,27 +197,27 @@ h3 {
 @keyframes ghost-run {
   0% {
     opacity: 0;
-    transform: translate(0.95em, -50%);
+    transform: translate3d(0.95em, -50%, 0);
   }
 
   8% {
     opacity: 0.6;
-    transform: translate(1.75em, -50%);
+    transform: translate3d(1.75em, -50%, 0);
   }
 
-  74% {
+  78% {
     opacity: 0.6;
-    transform: translate(calc(var(--chase-distance) - 0.2em), -50%);
+    transform: translate3d(calc(var(--chase-distance) - 0.2em), -50%, 0);
   }
 
   92% {
     opacity: 0;
-    transform: translate(calc(var(--chase-distance) + 0.18em), -50%);
+    transform: translate3d(calc(var(--chase-distance) + 0.18em), -50%, 0);
   }
 
   100% {
     opacity: 0;
-    transform: translate(calc(var(--chase-distance) + 0.18em), -50%);
+    transform: translate3d(calc(var(--chase-distance) + 0.18em), -50%, 0);
   }
 }
 
