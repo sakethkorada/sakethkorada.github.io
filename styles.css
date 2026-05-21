@@ -89,8 +89,8 @@ h3 {
 .chase-cursor {
   position: relative;
   display: inline-block;
-  width: 1.85em;
-  height: 0.62em;
+  width: 2.55em;
+  height: 0.72em;
   flex: 0 0 auto;
   overflow: hidden;
   transform: translateY(0.07em);
@@ -106,33 +106,68 @@ h3 {
 
 .chase-player {
   left: 0;
-  width: 0.46em;
-  height: 0.46em;
-  border-radius: 50%;
+  width: 0.52em;
+  height: 0.52em;
   background: currentColor;
-  clip-path: polygon(0 0, 100% 0, 100% 36%, 55% 50%, 100% 64%, 100% 100%, 0 100%);
-  animation: chase-run 2.1s linear infinite, chomp 0.42s steps(2, end) infinite;
+  clip-path: polygon(100% 0, 0 0, 0 34%, 42% 50%, 0 66%, 0 100%, 100% 100%);
+  animation: chase-run 2.25s steps(18, end) infinite, chomp 0.36s steps(2, end) infinite;
+}
+
+.chase-player::after {
+  content: "";
+  position: absolute;
+  top: 0.12em;
+  right: 0.14em;
+  width: 0.08em;
+  height: 0.08em;
+  background: var(--bg);
 }
 
 .chase-dot {
   left: 0;
-  width: 0.36em;
-  height: 0.42em;
-  border-radius: 50% 50% 16% 16%;
+  width: 0.46em;
+  height: 0.5em;
   background: currentColor;
-  opacity: 0.55;
-  animation: ghost-run 2.1s linear infinite;
+  clip-path: polygon(
+    0 14%,
+    20% 14%,
+    20% 0,
+    80% 0,
+    80% 14%,
+    100% 14%,
+    100% 76%,
+    82% 76%,
+    82% 100%,
+    62% 76%,
+    38% 76%,
+    18% 100%,
+    18% 76%,
+    0 76%
+  );
+  opacity: 0.6;
+  animation: ghost-run 2.25s steps(18, end) infinite;
+}
+
+.chase-dot::before {
+  content: "";
+  position: absolute;
+  top: 0.16em;
+  left: 0.11em;
+  width: 0.07em;
+  height: 0.07em;
+  background: var(--bg);
+  box-shadow: 0.17em 0 0 var(--bg);
 }
 
 @keyframes chase-run {
   0% {
     opacity: 0;
-    transform: translate(2em, -50%);
+    transform: translate(3.25em, -50%);
   }
 
   14% {
     opacity: 1;
-    transform: translate(1.5em, -50%);
+    transform: translate(2.55em, -50%);
   }
 
   78% {
@@ -142,40 +177,40 @@ h3 {
 
   100% {
     opacity: 0;
-    transform: translate(-0.8em, -50%);
+    transform: translate(-0.85em, -50%);
   }
 }
 
 @keyframes chomp {
   50% {
-    clip-path: polygon(0 0, 100% 0, 100% 48%, 62% 50%, 100% 52%, 100% 100%, 0 100%);
+    clip-path: polygon(100% 0, 0 0, 0 47%, 28% 50%, 0 53%, 0 100%, 100% 100%);
   }
 }
 
 @keyframes ghost-run {
   0% {
     opacity: 0;
-    transform: translate(2.4em, -50%);
+    transform: translate(2.45em, -50%);
   }
 
   8% {
-    opacity: 0.55;
+    opacity: 0.6;
     transform: translate(1.78em, -50%);
   }
 
   70% {
-    opacity: 0.55;
-    transform: translate(-0.08em, -56%);
+    opacity: 0.6;
+    transform: translate(-0.72em, -50%);
   }
 
   88% {
     opacity: 0;
-    transform: translate(-0.55em, -50%);
+    transform: translate(-1.05em, -50%);
   }
 
   100% {
     opacity: 0;
-    transform: translate(-0.55em, -50%);
+    transform: translate(-1.05em, -50%);
   }
 }
 
