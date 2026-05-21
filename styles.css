@@ -87,9 +87,10 @@ h3 {
 }
 
 .chase-cursor {
+  --chase-distance: clamp(5rem, 36vw, 22rem);
   position: relative;
   display: inline-block;
-  width: clamp(5rem, 36vw, 22rem);
+  width: var(--chase-distance);
   height: 0.72em;
   flex: 0 0 auto;
   overflow: hidden;
@@ -105,12 +106,12 @@ h3 {
 }
 
 .chase-player {
-  left: 0;
+  right: 0;
   width: 0.52em;
   height: 0.52em;
   background: currentColor;
   clip-path: polygon(100% 0, 0 0, 0 34%, 42% 50%, 0 66%, 0 100%, 100% 100%);
-  animation: chase-run 2.25s steps(18, end) infinite, chomp 0.36s steps(2, end) infinite;
+  animation: chase-run 3s steps(22, end) infinite, chomp 0.42s steps(2, end) infinite;
 }
 
 .chase-player::after {
@@ -124,7 +125,7 @@ h3 {
 }
 
 .chase-dot {
-  left: 0;
+  right: 0;
   width: 0.46em;
   height: 0.5em;
   background: currentColor;
@@ -145,7 +146,7 @@ h3 {
     0 76%
   );
   opacity: 0.6;
-  animation: ghost-run 2.25s steps(18, end) infinite;
+  animation: ghost-run 3s steps(22, end) infinite;
 }
 
 .chase-dot::before {
@@ -162,22 +163,22 @@ h3 {
 @keyframes chase-run {
   0% {
     opacity: 0;
-    transform: translate(10.4em, -50%);
+    transform: translate(0.9em, -50%);
   }
 
   14% {
     opacity: 1;
-    transform: translate(8.8em, -50%);
+    transform: translate(0, -50%);
   }
 
   78% {
     opacity: 1;
-    transform: translate(-0.7em, -50%);
+    transform: translate(calc(-1 * var(--chase-distance) + 0.65em), -50%);
   }
 
   100% {
     opacity: 0;
-    transform: translate(-1.05em, -50%);
+    transform: translate(calc(-1 * var(--chase-distance) + 0.2em), -50%);
   }
 }
 
@@ -190,27 +191,27 @@ h3 {
 @keyframes ghost-run {
   0% {
     opacity: 0;
-    transform: translate(8.7em, -50%);
+    transform: translate(-1.15em, -50%);
   }
 
   8% {
     opacity: 0.6;
-    transform: translate(7.4em, -50%);
+    transform: translate(-1.85em, -50%);
   }
 
   70% {
     opacity: 0.6;
-    transform: translate(-1.25em, -50%);
+    transform: translate(calc(-1 * var(--chase-distance) - 0.25em), -50%);
   }
 
   88% {
     opacity: 0;
-    transform: translate(-1.55em, -50%);
+    transform: translate(calc(-1 * var(--chase-distance) - 0.65em), -50%);
   }
 
   100% {
     opacity: 0;
-    transform: translate(-1.55em, -50%);
+    transform: translate(calc(-1 * var(--chase-distance) - 0.65em), -50%);
   }
 }
 
@@ -958,7 +959,7 @@ footer span {
   }
 
   .chase-cursor {
-    width: clamp(3rem, 17vw, 4.25rem);
+    --chase-distance: clamp(3rem, 17vw, 4.25rem);
   }
 
   .skill-row {
