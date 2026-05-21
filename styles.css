@@ -270,8 +270,35 @@ dd {
 .site-terminal {
   margin-top: 1rem;
   border-radius: 5px;
-  background: var(--panel);
-  padding: 0.9rem;
+  overflow: hidden;
+  background: #111111;
+  color: #f2f2f2;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+:root.dark .site-terminal {
+  background: #050505;
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-bottom: 1px solid #2d2d2d;
+  background: #1b1b1b;
+  padding: 0.45rem 0.65rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.terminal-titlebar span {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.terminal-titlebar p {
+  margin: 0;
+  color: #9d9d9d;
+  font-size: 0.72rem;
 }
 
 .terminal-output {
@@ -280,7 +307,8 @@ dd {
   min-height: 5.5rem;
   max-height: 12rem;
   overflow: auto;
-  color: var(--muted);
+  padding: 0.75rem 0.75rem 0;
+  color: #cfcfcf;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 0.78rem;
 }
@@ -293,14 +321,14 @@ dd {
   border: 0;
   background: transparent;
   padding: 0;
-  color: var(--text);
+  color: #ffffff;
   cursor: pointer;
   font: inherit;
   text-decoration: underline;
 }
 
 .prompt {
-  color: var(--text);
+  color: #ffffff;
   font-weight: 800;
 }
 
@@ -309,14 +337,14 @@ dd {
   grid-template-columns: auto 1fr;
   gap: 0.55rem;
   align-items: center;
-  margin-top: 0.6rem;
-  border-top: 1px solid var(--line);
+  margin: 0.6rem 0.75rem 0.75rem;
+  border-top: 1px solid #2d2d2d;
   padding-top: 0.55rem;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 .terminal-input-row label {
-  color: var(--text);
+  color: #ffffff;
   font-weight: 800;
 }
 
@@ -325,12 +353,12 @@ dd {
   border: 0;
   outline: 0;
   background: transparent;
-  color: var(--text);
+  color: #f2f2f2;
   font: inherit;
 }
 
 .terminal-input-row input::placeholder {
-  color: var(--faint);
+  color: #777777;
 }
 
 dl {
