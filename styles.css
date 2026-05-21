@@ -267,54 +267,70 @@ dd {
   margin-top: 0.75rem;
 }
 
-.now-terminal {
+.site-terminal {
   margin-top: 1rem;
   border-radius: 5px;
   background: var(--panel);
   padding: 0.9rem;
 }
 
-.now-terminal .manual-line {
-  min-height: 1.25rem;
+.terminal-output {
+  display: grid;
+  gap: 0.35rem;
+  min-height: 5.5rem;
+  max-height: 12rem;
+  overflow: auto;
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
 }
 
-[data-typed-command]::after {
-  content: "";
-  display: inline-block;
-  width: 0.5ch;
-  height: 0.9em;
-  margin-left: 0.16rem;
-  background: currentColor;
-  transform: translateY(0.1em);
-  animation: cursor-blink 1.1s steps(2, start) infinite;
+.terminal-output p {
+  margin: 0;
 }
 
-.now-terminal.is-complete [data-typed-command]::after {
-  display: none;
+.terminal-output button {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
 }
 
-.now-output {
-  opacity: 0;
-  transform: translateY(-0.2rem);
-  transition: opacity 180ms ease, transform 180ms ease;
+.prompt {
+  color: var(--text);
+  font-weight: 800;
 }
 
-.now-terminal.is-complete .now-output {
-  opacity: 1;
-  transform: translateY(0);
+.terminal-input-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.55rem;
+  align-items: center;
+  margin-top: 0.6rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.55rem;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .cursor,
-  [data-typed-command]::after {
-    animation: none;
-  }
+.terminal-input-row label {
+  color: var(--text);
+  font-weight: 800;
+}
 
-  .now-output {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+.terminal-input-row input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
+.terminal-input-row input::placeholder {
+  color: var(--faint);
 }
 
 dl {

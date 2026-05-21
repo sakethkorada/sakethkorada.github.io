@@ -7,8 +7,10 @@ const experienceItems = document.querySelectorAll(".experience-item");
 const experiencePanels = document.querySelectorAll(".experience-panel");
 const projectItems = document.querySelectorAll(".project-item");
 const projectPanels = document.querySelectorAll(".project-panel");
-const nowTerminal = document.querySelector("[data-now-terminal]");
-const typedCommand = document.querySelector("[data-typed-command]");
+const terminalOutput = document.querySelector("[data-terminal-output]");
+const terminalForm = document.querySelector("[data-terminal-form]");
+const terminalInput = document.querySelector("[data-terminal-input]");
+const terminalShortcuts = document.querySelectorAll("[data-command-shortcut]");
 
 const storage = {
   get(key) {
@@ -94,36 +96,96 @@ projectItems.forEach((button) => {
   });
 });
 
+function appendTerminalLine(content, className = "") {
+  if (!terminalOutput) return;
+
+  const line = document.createElement("p");
+  if (className) line.className = className;
+  line.innerHTML = content;
+  terminalOutput.append(line);
+  terminalOutput.scrollTop = terminalOutput.scrollHeight;
+}
+
+function runTerminalCommand(rawCommand) {
+  const command = rawCommand.trim().toLowerCase();
+  if (!command) return;
+
+  appendTerminalLine(`<span class="prompt">$</span> ${command}`);
+
+  const routes = {
+    bio: "bio",
+    experience: "experience",
+    exp: "experience",
+    projects: "projects",
+    proj: "projects",
+    contact: "contact",
+  };
+
+  if (routes[command]) {
+    showPage(routes[command]);
+    appendTerminalLine(`opened ${routes[command]}.`);
+    return;
+  }
+
+  if (command === "help") {
+    appendTerminalLine("commands: bio, experience, projects, contact, resume, github, linkedin, email, now, clear");
+    return;
+  }
+
+  if (command === "now") {
+    appendTerminalLine("building: personal website + project writeups");
+    appendTerminalLine("learning: systems, robotics, and practical ai tooling");
+    appendTerminalLine("outside: gym, cooking, video games, hiking, reading");
+    return;
+  }
+
+  if (command === "resume") {
+    window.open("SakethKoradaResume.pdf", "_blank", "noopener,noreferrer");
+    appendTerminalLine("opening resume...");
+    return;
+  }
+
+  if (command === "github") {
+    window.open("https://github.com/sakethkorada", "_blank", "noopener,noreferrer");
+    appendTerminalLine("opening github...");
+    return;
+  }
+
+  if (command === "linkedin") {
+    window.open("https://www.linkedin.com/in/saketh-korada/", "_blank", "noopener,noreferrer");
+    appendTerminalLine("opening linkedin...");
+    return;
+  }
+
+  if (command === "email") {
+    window.location.href = "mailto:skorada@ucsd.edu";
+    appendTerminalLine("opening mail client...");
+    return;
+  }
+
+  if (command === "clear") {
+    terminalOutput.innerHTML = "";
+    return;
+  }
+
+  appendTerminalLine(`command not found: ${command}. try help.`);
+}
+
+terminalForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  runTerminalCommand(terminalInput.value);
+  terminalInput.value = "";
+});
+
+terminalShortcuts.forEach((button) => {
+  button.addEventListener("click", () => {
+    runTerminalCommand(button.dataset.commandShortcut);
+    terminalInput?.focus();
+  });
+});
+
 const storedTheme = storage.get("theme");
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 const initialPage = window.location.hash.replace("#", "") || "bio";
 applyTheme(storedTheme || (prefersDark ? "dark" : "light"));
 showPage(initialPage);
-
-function typeNowCommand() {
-  if (!nowTerminal || !typedCommand) return;
-
-  const command = "$ bio --now";
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (prefersReducedMotion) {
-    typedCommand.textContent = command;
-    nowTerminal.classList.add("is-complete");
-    return;
-  }
-
-  let index = 0;
-  const timer = window.setInterval(() => {
-    typedCommand.textContent = command.slice(0, index + 1);
-    index += 1;
-
-    if (index === command.length) {
-      window.clearInterval(timer);
-      window.setTimeout(() => {
-        nowTerminal.classList.add("is-complete");
-      }, 180);
-    }
-  }, 85);
-}
-
-typeNowCommand();
