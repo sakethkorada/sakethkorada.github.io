@@ -104,18 +104,8 @@ function appendTerminalLine(output, content, className = "") {
   output.append(line);
   output.scrollTop = output.scrollHeight;
 
-  if (terminal?.hasAttribute("data-global-terminal")) {
-    const shouldExpand = className === "terminal-help" || className === "terminal-expand";
-    if (shouldExpand) {
-      terminal.classList.add("is-expanded");
-      return;
-    }
-
-    if (!terminal.classList.contains("is-expanded")) {
-      while (output.children.length > 2) {
-        output.firstElementChild?.remove();
-      }
-    }
+  if (terminal?.hasAttribute("data-global-terminal") && className) {
+    terminal.classList.add("is-expanded");
   }
 }
 
@@ -137,7 +127,14 @@ function runTerminalCommand(rawCommand, output) {
   if (!command) return;
 
   const terminal = output?.closest("[data-terminal]");
-  appendTerminalLine(output, `<span class="prompt">$</span> ${escapeTerminalText(command)}`);
+  const isGlobalTerminal = terminal?.hasAttribute("data-global-terminal");
+
+  if (isGlobalTerminal) {
+    output.innerHTML = "";
+    terminal.classList.remove("is-expanded");
+  } else {
+    appendTerminalLine(output, `<span class="prompt">$</span> ${escapeTerminalText(command)}`);
+  }
 
   const routes = {
     bio: "bio",
@@ -150,16 +147,24 @@ function runTerminalCommand(rawCommand, output) {
 
   if (routes[command]) {
     showPage(routes[command]);
-    appendTerminalLine(output, `opened ${routes[command]}.`);
+    if (!isGlobalTerminal) {
+      appendTerminalLine(output, `opened ${routes[command]}.`);
+    }
     return;
   }
 
   if (command === "help") {
+    if (isGlobalTerminal) {
+      appendTerminalLine(output, `<span class="prompt">$</span> ${escapeTerminalText(command)}`, "terminal-help");
+    }
     appendTerminalLine(output, "commands: bio, experience, projects, contact, resume, github, linkedin, email, now, clear", "terminal-help");
     return;
   }
 
   if (command === "now") {
+    if (isGlobalTerminal) {
+      appendTerminalLine(output, `<span class="prompt">$</span> ${escapeTerminalText(command)}`, "terminal-expand");
+    }
     appendTerminalLine(output, "building: personal website + project writeups", "terminal-expand");
     appendTerminalLine(output, "learning: systems, robotics, and practical ai tooling", "terminal-expand");
     appendTerminalLine(output, "outside: gym, cooking, video games, hiking, reading", "terminal-expand");
@@ -168,25 +173,33 @@ function runTerminalCommand(rawCommand, output) {
 
   if (command === "resume") {
     window.open("SakethKoradaResume.pdf", "_blank", "noopener,noreferrer");
-    appendTerminalLine(output, "opening resume...");
+    if (!isGlobalTerminal) {
+      appendTerminalLine(output, "opening resume...");
+    }
     return;
   }
 
   if (command === "github") {
     window.open("https://github.com/sakethkorada", "_blank", "noopener,noreferrer");
-    appendTerminalLine(output, "opening github...");
+    if (!isGlobalTerminal) {
+      appendTerminalLine(output, "opening github...");
+    }
     return;
   }
 
   if (command === "linkedin") {
     window.open("https://www.linkedin.com/in/saketh-korada/", "_blank", "noopener,noreferrer");
-    appendTerminalLine(output, "opening linkedin...");
+    if (!isGlobalTerminal) {
+      appendTerminalLine(output, "opening linkedin...");
+    }
     return;
   }
 
   if (command === "email") {
     window.location.href = "mailto:skorada@ucsd.edu";
-    appendTerminalLine(output, "opening mail client...");
+    if (!isGlobalTerminal) {
+      appendTerminalLine(output, "opening mail client...");
+    }
     return;
   }
 
@@ -196,7 +209,7 @@ function runTerminalCommand(rawCommand, output) {
     return;
   }
 
-  appendTerminalLine(output, `command not found: ${escapeTerminalText(command)}. try help.`);
+  appendTerminalLine(output, `command not found: ${escapeTerminalText(command)}. try help.`, "terminal-help");
 }
 
 terminals.forEach((terminal) => {
