@@ -7,6 +7,8 @@ const experienceItems = document.querySelectorAll(".experience-item");
 const experiencePanels = document.querySelectorAll(".experience-panel");
 const projectItems = document.querySelectorAll(".project-item");
 const projectPanels = document.querySelectorAll(".project-panel");
+const nowTerminal = document.querySelector("[data-now-terminal]");
+const typedCommand = document.querySelector("[data-typed-command]");
 
 const storage = {
   get(key) {
@@ -97,3 +99,31 @@ const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 const initialPage = window.location.hash.replace("#", "") || "bio";
 applyTheme(storedTheme || (prefersDark ? "dark" : "light"));
 showPage(initialPage);
+
+function typeNowCommand() {
+  if (!nowTerminal || !typedCommand) return;
+
+  const command = "$ bio --now";
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) {
+    typedCommand.textContent = command;
+    nowTerminal.classList.add("is-complete");
+    return;
+  }
+
+  let index = 0;
+  const timer = window.setInterval(() => {
+    typedCommand.textContent = command.slice(0, index + 1);
+    index += 1;
+
+    if (index === command.length) {
+      window.clearInterval(timer);
+      window.setTimeout(() => {
+        nowTerminal.classList.add("is-complete");
+      }, 180);
+    }
+  }, 85);
+}
+
+typeNowCommand();
