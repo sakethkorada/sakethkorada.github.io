@@ -9,7 +9,7 @@
     />
     <title>Saketh Korada | Portfolio</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=41" />
+    <link rel="stylesheet" href="styles.css?v=42" />
   </head>
   <body>
     <div class="site-shell">
@@ -267,7 +267,7 @@
         <div class="page-heading">
           <p class="eyebrow">projects</p>
           <h2 id="projects-title">selected work.</h2>
-          <p class="command-note">output: 5 projects returned.</p>
+          <p class="command-note">output: 6 projects returned.</p>
         </div>
         <div class="project-browser">
           <div class="project-list" aria-label="Project list">
@@ -286,6 +286,10 @@
             <button class="project-item" type="button" data-project="valgazer">
               <span><b>proj</b> val-gazer</span>
               <small>gaze tracking overlay</small>
+            </button>
+            <button class="project-item" type="button" data-project="roboticsplayground">
+              <span><b>proj</b> robotics-playground</span>
+              <small>motion planning sandbox</small>
             </button>
             <button class="project-item" type="button" data-project="personalwebsite">
               <span><b>proj</b> personal-website</span>
@@ -393,6 +397,31 @@
                 </div>
               </dl>
             </article>
+            <article class="project-panel" data-project-panel="roboticsplayground">
+              <p class="manual-line">$ proj robotics-playground --readme</p>
+              <dl class="manual-output">
+                <div>
+                  <dt>stack</dt>
+                  <dd>python, pybullet, pyvista, motion planning, path finding</dd>
+                </div>
+                <div>
+                  <dt>desc</dt>
+                  <dd>interactive sandbox for exploring motion planning and path-finding algorithms in 2d and 3d spaces.</dd>
+                </div>
+                <div>
+                  <dt>impact</dt>
+                  <dd>helps visualize how planners behave across different spaces, obstacles, and search strategies.</dd>
+                </div>
+                <div>
+                  <dt>built</dt>
+                  <dd>rrt, rrt*, astar, and dijkstra experiments with interactive simulation and visualization tooling.</dd>
+                </div>
+                <div>
+                  <dt>links</dt>
+                  <dd><a href="https://github.com/sakethkorada/RoboticsPlayground" target="_blank" rel="noopener noreferrer">code</a></dd>
+                </div>
+              </dl>
+            </article>
             <article class="project-panel" data-project-panel="personalwebsite">
               <p class="manual-line">$ proj personal-website --readme</p>
               <dl class="manual-output">
@@ -450,6 +479,6 @@
       </footer>
     </div>
 
-    <script src="script.js?v=41"></script>
+    <script src="script.js?v=42"></script>
   </body>
 </html>
