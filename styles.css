@@ -90,8 +90,9 @@ h3 {
   position: relative;
   display: inline-block;
   width: var(--chase-distance);
-  height: 0.72em;
+  height: 0.82em;
   flex: 0 0 auto;
+  font-size: clamp(1.15rem, 3vw, 1.55rem);
   overflow: hidden;
   pointer-events: none;
   transform: translateY(0.07em);
@@ -521,8 +522,6 @@ dd {
   max-width: 34rem;
   height: auto;
   border: 0;
-  border-top: 1px solid #242424;
-  border-bottom: 1px solid #242424;
   background: transparent;
   image-rendering: pixelated;
   outline: 0;
