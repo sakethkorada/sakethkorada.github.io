@@ -200,6 +200,17 @@ function drawCell(ctx, x, y, size, color) {
   ctx.fillRect(x, y, size, size);
 }
 
+function drawSprite(ctx, sprite, x, y, scale, color) {
+  ctx.fillStyle = color;
+  sprite.forEach((row, rowIndex) => {
+    [...row].forEach((cell, colIndex) => {
+      if (cell !== " ") {
+        ctx.fillRect(x + colIndex * scale, y + rowIndex * scale, scale, scale);
+      }
+    });
+  });
+}
+
 function makeGameController(timer, onKey, terminal, shell, output) {
   return {
     stop() {
@@ -246,8 +257,6 @@ function startSnake(output) {
 
   function draw() {
     clearGame(ctx, screen, "snake", background);
-    ctx.strokeStyle = "#242424";
-    ctx.strokeRect(0.5, 25.5, cols * cell + 0.5, rows * cell + 0.5);
     drawCell(ctx, food.x * cell + 2, 27 + food.y * cell, cell - 4, "#777777");
     snake.forEach((part, index) => {
       drawCell(ctx, part.x * cell + 1, 27 + part.y * cell, cell - 2, index === 0 ? "#ffffff" : "#cfcfcf");
@@ -314,6 +323,31 @@ function startSnake(output) {
 function startDino(output) {
   const { screen, ctx, status, shell, terminal, background } = createGameShell(output, "dino", "press space/w/up to jump.");
   const ground = 164;
+  const dinoSprite = [
+    "       ######   ",
+    "      ########  ",
+    "      ## ## ##  ",
+    "      ########  ",
+    "      ####      ",
+    "#    #######    ",
+    "##  #########   ",
+    "############    ",
+    "  ########      ",
+    "   ######       ",
+    "    ## ##       ",
+    "    ##  ##      ",
+  ];
+  const cactusSprite = [
+    "   ##     ",
+    "   ##  ## ",
+    "## ##  ## ",
+    "## ###### ",
+    "######    ",
+    "   ##     ",
+    "   ##     ",
+    "   ##     ",
+    "   ##     ",
+  ];
   let y = ground;
   let velocity = 0;
   let obstacleX = screen.width + 40;
@@ -326,22 +360,13 @@ function startDino(output) {
   }
 
   function drawDino(x, yPos) {
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(x + 8, yPos, 18, 8);
-    ctx.fillRect(x + 4, yPos + 8, 30, 10);
-    ctx.fillRect(x + 12, yPos + 18, 12, 14);
-    ctx.fillRect(x + 4, yPos + 28, 8, 8);
-    ctx.fillRect(x + 24, yPos + 28, 8, 8);
-    ctx.fillRect(x + 32, yPos + 10, 9, 6);
+    drawSprite(ctx, dinoSprite, x, yPos, 3, "#ffffff");
     ctx.fillStyle = background;
-    ctx.fillRect(x + 23, yPos + 3, 4, 4);
+    ctx.fillRect(x + 30, yPos + 6, 3, 3);
   }
 
   function drawCactus(x) {
-    ctx.fillStyle = "#9d9d9d";
-    ctx.fillRect(x + 8, ground + 2, 9, 34);
-    ctx.fillRect(x, ground + 16, 8, 7);
-    ctx.fillRect(x + 17, ground + 10, 8, 7);
+    drawSprite(ctx, cactusSprite, x, ground + 8, 3, "#9d9d9d");
   }
 
   function draw() {
@@ -364,8 +389,8 @@ function startDino(output) {
       score += 1;
     }
 
-    const hitX = obstacleX < 77 && obstacleX + 25 > 48;
-    const hitY = y + 36 > ground + 2;
+    const hitX = obstacleX < 92 && obstacleX + 28 > 48;
+    const hitY = y + dinoSprite.length * 3 > ground + 8;
     if (hitX && hitY) done = true;
     draw();
   }
