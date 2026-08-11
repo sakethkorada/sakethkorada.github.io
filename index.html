@@ -66,12 +66,11 @@
         <div class="bio-browser">
           <div class="bio-copy">
             <p class="lead">
-              i'm a computer engineering undergrad at ucsd interested in software,
-              robotics, infrastructure, and ai tooling.
+              i'm a computer engineering undergrad at ucsd building software for
+              infrastructure, robotics, and ai-powered developer workflows.
             </p>
             <p>
-              i’m interested in building software and robotics solutions that work in real time, handle complexity at scale, and solve practical problems in the physical world. i especially enjoy systems that bring together automation, developer tools, and data-heavy workflows to turn messy inputs into useful outcomes.
-              outside of code, i like going to the gym, cooking, playing video games, hiking, and reading. feel free to reach out about anything, and have fun exploring the page.
+              i like practical systems work: python libraries, cloud services, robotics tooling, and automation that makes complex workflows easier to use. lately, that has meant multi-tenant storage clients, robot navigation research, and terminal-first ai orchestration. outside of code, i like going to the gym, cooking, playing video games, hiking, and reading. feel free to reach out about anything, and have fun exploring the page.
             </p>
           </div>
           <div class="bio-detail-list" aria-label="Bio details">
@@ -84,7 +83,7 @@
                 </div>
                 <div>
                   <dt>degree</dt>
-                  <dd>b.s. computer engineering</dd>
+                  <dd>b.s. computer engineering, 4.0 gpa</dd>
                 </div>
                 <div>
                   <dt>grad</dt>
@@ -92,11 +91,11 @@
                 </div>
                 <div>
                   <dt>focus</dt>
-                  <dd>software, robotics, infra, ai tooling</dd>
+                  <dd>software, robotics, cloud infra, ai tooling</dd>
                 </div>
                 <div>
                   <dt>status</dt>
-                  <dd>looking for swe / robotics / systems internships</dd>
+                  <dd>incoming swe intern, uber compute platform</dd>
                 </div>
               </dl>
             </div>
@@ -108,11 +107,16 @@
         <div class="page-heading">
           <p class="eyebrow">experience</p>
           <h2 id="experience-title">places i've learned by doing.</h2>
-          <p class="command-note">output: 4 roles returned.</p>
+          <p class="command-note">output: 5 roles returned.</p>
         </div>
         <div class="experience-browser">
           <div class="experience-list" aria-label="Experience roles">
-            <button class="experience-item is-active" type="button" data-experience="salesforce">
+            <button class="experience-item is-active" type="button" data-experience="uber">
+              <span><b>exp</b> uber</span>
+              <small>--compute-platform</small>
+              <em>2026</em>
+            </button>
+            <button class="experience-item" type="button" data-experience="salesforce">
               <span><b>exp</b> salesforce</span>
               <small>--cloud-platform</small>
               <em>2026</em>
@@ -130,11 +134,32 @@
             <button class="experience-item" type="button" data-experience="forsys">
               <span><b>exp</b> forsys</span>
               <small>--llm-etl</small>
-              <em>2023</em>
+              <em>2024</em>
             </button>
           </div>
           <div class="experience-detail">
-            <article class="experience-panel is-active" data-experience-panel="salesforce">
+            <article class="experience-panel is-active" data-experience-panel="uber">
+              <p class="manual-line">$ exp uber --help</p>
+              <dl class="manual-output">
+                <div>
+                  <dt>role</dt>
+                  <dd>incoming software engineer intern</dd>
+                </div>
+                <div>
+                  <dt>org</dt>
+                  <dd><a href="https://www.uber.com/" target="_blank" rel="noopener noreferrer">uber</a></dd>
+                </div>
+                <div>
+                  <dt>when</dt>
+                  <dd>sept 2026 - dec 2026</dd>
+                </div>
+                <div>
+                  <dt>notes</dt>
+                  <dd>joining the compute platform infrastructure team to build the systems behind reliable, scalable compute.</dd>
+                </div>
+              </dl>
+            </article>
+            <article class="experience-panel" data-experience-panel="salesforce">
               <p class="manual-line">$ exp salesforce --help</p>
               <dl class="manual-output">
                 <div>
@@ -147,11 +172,11 @@
                 </div>
                 <div>
                   <dt>when</dt>
-                  <dd>jan 2026 - present</dd>
+                  <dd>june 2026 - present</dd>
                 </div>
                 <div>
                   <dt>notes</dt>
-                  <dd>incoming swe intern on the hyperforce platform services cloud platform.</dd>
+                  <dd>built multi-tenant python storage clients over aws s3 and google cloud storage, then added resilient retries, credential isolation, and observability for 5+ core services.</dd>
                 </div>
               </dl>
             </article>
@@ -172,7 +197,7 @@
                 </div>
                 <div>
                   <dt>notes</dt>
-                  <dd>developing lidar-based mapping and autonomous motion-planning algorithms in python using ros, gazebo, and pybullet.</dd>
+                  <dd>implementing lidar-based slam and autonomous motion-planning in python with ros, gazebo, and pybullet for simulated robotic navigation.</dd>
                 </div>
               </dl>
             </article>
@@ -193,7 +218,7 @@
                 </div>
                 <div>
                   <dt>notes</dt>
-                  <dd>architected a real-time c++ control system with deterministic execution, sensor-stream processing, telemetry pipelines, and hardware-in-the-loop testing.</dd>
+                  <dd>built a 100 hz c++ thrust-vector-control loop with pid and kalman filtering, plus can/spi telemetry pipelines across microcontrollers and an onboard pc.</dd>
                 </div>
               </dl>
             </article>
@@ -210,7 +235,7 @@
                 </div>
                 <div>
                   <dt>when</dt>
-                  <dd>may 2023 - sept 2023</dd>
+                  <dd>may 2024 - sept 2024</dd>
                 </div>
                 <div>
                   <dt>notes</dt>
@@ -224,23 +249,23 @@
           <p class="command-note">output: skills grouped by use.</p>
           <div class="skill-row">
             <span>languages</span>
-            <p>python, java, c/c++, go, javascript, sql, matlab</p>
+            <p>python, java, c++, go, sql, bash</p>
           </div>
           <div class="skill-row">
-            <span>tools</span>
-            <p>git/github, linux, docker, aws, vs code, codex, postgresql, sqlite</p>
+            <span>infra + data</span>
+            <p>linux, docker, kubernetes, aws, gcp, postgresql, sqlite, redis, terraform, helm</p>
           </div>
           <div class="skill-row">
             <span>frameworks</span>
-            <p>fastapi, opencv, mediapipe, tensorflow, yolov8, ros, pybullet</p>
+            <p>fastapi, opentelemetry, prometheus, ros, gazebo, pybullet, git/github, bazel, jenkins</p>
           </div>
           <div class="skill-row">
-            <span>focus</span>
-            <p>distributed systems, rest apis, etl pipelines, binary i/o, compression algorithms</p>
+            <span>systems</span>
+            <p>distributed systems, cloud storage, api design, etl pipelines, concurrency, observability, binary i/o</p>
           </div>
           <div class="skill-row">
-            <span>concepts</span>
-            <p>data structures, control systems, embedded systems, robotics, computer vision, agentic coding</p>
+            <span>other</span>
+            <p>control systems, robotics, computer vision, claude, codex</p>
           </div>
         </div>
       </section>
@@ -264,9 +289,9 @@
               <em>sept 2025</em>
             </button>
             <button class="project-item" type="button" data-project="jarvis">
-              <span><b>proj</b> jarvis</span>
-              <small>api workflow assistant</small>
-              <em>jul 2025</em>
+              <span><b>proj</b> jarvisos</span>
+              <small>terminal-first ai orchestration</small>
+              <em>jul 2026</em>
             </button>
             <button class="project-item" type="button" data-project="valgazer">
               <span><b>proj</b> val-gazer</span>
@@ -336,23 +361,23 @@
               </dl>
             </article>
             <article class="project-panel" data-project-panel="jarvis">
-              <p class="manual-line">$ proj jarvis --readme</p>
+              <p class="manual-line">$ proj jarvisos --readme</p>
               <dl class="manual-output">
                 <div>
                   <dt>stack</dt>
-                  <dd>python, gemini cli, rest apis, sqlite, oauth</dd>
+                  <dd>python, local/cloud ai models, mcp, sqlite, opentelemetry</dd>
                 </div>
                 <div>
                   <dt>desc</dt>
-                  <dd>workflow assistant that orchestrates gmail, calendar, and spotify apis through gemini cli.</dd>
+                  <dd>terminal-first orchestration runtime that turns natural-language goals into validated workflows across models, mcp integrations, and local plugins.</dd>
                 </div>
                 <div>
                   <dt>impact</dt>
-                  <dd>automated 5+ multi-step workflows including meeting scheduling and playlist generation.</dd>
+                  <dd>cut end-to-end latency by 40-75% on tool-driven workloads through direct-request routing, lazy mcp activation, session reuse, and bounded concurrency.</dd>
                 </div>
                 <div>
                   <dt>built</dt>
-                  <dd>oauth 2.0 auth and sqlite long-term memory for 10k+ conversation contexts.</dd>
+                  <dd>sqlite-backed task, approval, and execution state with structured logs, opentelemetry traces, and prometheus metrics.</dd>
                 </div>
                 <div>
                   <dt>links</dt>
