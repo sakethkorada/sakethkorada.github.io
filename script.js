@@ -60,6 +60,10 @@ function showPage(pageName, updateHash = true) {
     globalTerminalInput.placeholder =
       targetPage === "bio" ? "try help" : "bio, exp, projects, contact";
   }
+
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "section_view", { section_name: targetPage });
+  }
 }
 
 function applyTheme(theme) {
