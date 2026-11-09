@@ -115,7 +115,7 @@
         <div class="page-heading">
           <p class="eyebrow">experience</p>
           <h2 id="experience-title">places i've learned by doing.</h2>
-          <p class="command-note">output: 4 roles returned.</p>
+          <p class="command-note">output: 5 roles returned.</p>
         </div>
         <div class="experience-browser">
           <div class="experience-list" aria-label="Experience roles">
@@ -133,6 +133,11 @@
               <span><b>exp</b> erl</span>
               <small>--robotics-research</small>
               <em>2025</em>
+            </button>
+            <button class="experience-item" type="button" data-experience="seds">
+              <span><b>exp</b> seds</span>
+              <small>--controls-telemetry</small>
+              <em>2024</em>
             </button>
             <button class="experience-item" type="button" data-experience="forsys">
               <span><b>exp</b> forsys</span>
@@ -201,6 +206,27 @@
                 <div>
                   <dt>notes</dt>
                   <dd>implementing lidar-based slam and autonomous motion-planning in python with ros, gazebo, and pybullet for simulated robotic navigation.</dd>
+                </div>
+              </dl>
+            </article>
+            <article class="experience-panel" data-experience-panel="seds">
+              <p class="manual-line">$ exp seds --help</p>
+              <dl class="manual-output">
+                <div>
+                  <dt>role</dt>
+                  <dd>software engineer</dd>
+                </div>
+                <div>
+                  <dt>org</dt>
+                  <dd><a href="https://sedsucsd.org/" target="_blank" rel="noopener noreferrer">seds @ ucsd</a></dd>
+                </div>
+                <div>
+                  <dt>when</dt>
+                  <dd>sept 2024 - present</dd>
+                </div>
+                <div>
+                  <dt>notes</dt>
+                  <dd>built a 100 hz c++ thrust-vector-control loop with pid and kalman filtering, plus can/spi telemetry pipelines across microcontrollers and an onboard pc.</dd>
                 </div>
               </dl>
             </article>
